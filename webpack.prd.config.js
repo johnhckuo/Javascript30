@@ -6,7 +6,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
-  context: path.join(__dirname, 'src'),
+  context: path.join(__dirname, 'src', 'script'),
   entry: {
     index: './index.jsx'
   },
@@ -28,6 +28,12 @@ module.exports = {
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=25000'
+    }, {
+      test: /\.wav$/,
+      loader: 'file',
+      query: {
+        name: 'static/media/[name].[hash:8].[ext]'
+      }
     }]
   },
   resolve: {
