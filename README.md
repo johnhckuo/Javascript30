@@ -17,3 +17,4 @@ npm run dev
 ```
 ## Powered by
 - [Reactjs](https://reactjs.org/)
+- [Styled Component](https://www.styled-components.com/)

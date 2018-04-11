@@ -6,9 +6,11 @@ import * as Style from "./style.js"
 export default class Drum extends React.Component{
   constructor(){
     super();
-    this.state = { 
-      active: -1
+    this.state = {
+      active: {}
     }
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
   }
 
   handleKeyPress(e){
@@ -16,24 +18,26 @@ export default class Drum extends React.Component{
       let audio = new Audio(sound[e.keyCode].src);
       audio.play();
       this.setState({
-        active: e.keyCode
+        active: {...this.state.active, [e.keyCode]: true}
       })
     }
   }
-  handleKeyUp(e){
+
+  handleTransitionEnd(e){
+    if (e.propertyName !== "transform") return;
     this.setState({
-      active: -1
+      active: {...this.state.active, [e.target.getAttribute("data")]: false}
     })
   }
 
   componentDidMount(){
-    document.addEventListener("keydown", this.handleKeyPress.bind(this), false);
-    document.addEventListener("keyup", this.handleKeyUp.bind(this), false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
+    document.addEventListener("transitionend", this.handleTransitionEnd, false);
 
   }
   componentWillUnmount(){
-    document.removeEventListener("keydown", this.handleKeyPress.bind(this), false);
-    document.removeEventListener("keyup", this.handleKeyUp.bind(this), false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
+    document.removeEventListener("transitionend", this.handleTransitionEnd, false);
   }
 
   render(){
@@ -45,7 +49,7 @@ export default class Drum extends React.Component{
             Object.keys(sound).map((index=>{
               let obj = sound[index];
               return (
-                <Style.Key data={index} key={index} active={this.state.active}>
+                <Style.Key data={index} key={index} active={this.state.active[index]}>
                   <Style.Kbd>{obj.kbd}</Style.Kbd>
                   <Style.Sound>{obj.name}</Style.Sound>
                 </Style.Key>
@@ -57,7 +61,4 @@ export default class Drum extends React.Component{
       </Style.Container>
     );
   }
-
-
-
 }

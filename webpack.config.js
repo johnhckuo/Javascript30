@@ -12,7 +12,7 @@ module.exports = {
     vendor: ['react']
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'docs'),
     filename: '[name].js'
   },
   module: {

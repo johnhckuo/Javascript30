@@ -33,9 +33,9 @@ export const Key = styled.div`
 	background: rgba(0,0,0,0.4);
 	text-shadow: 0 0 .5rem black;
 
-	transform: ${props => props.data == props.active ? "scale(1.1)" : "inherit"};
-	border-color: ${props => props.data == props.active ? "#fffc600" : "inherit"};
-	box-shadow: ${props => props.data == props.active ? "0 0 1rem #ffc600" : "inherit"};
+	transform: ${props => props.active ? "scale(1.1)" : "inherit"};
+	border-color: ${props => props.active ? "#fffc600" : "inherit"};
+	box-shadow: ${props => props.active ? "0 0 1rem #ffc600" : "inherit"};
 `;
 
 export const Kbd = styled.kbd`
