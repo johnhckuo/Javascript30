@@ -5,11 +5,12 @@ import * as Style from "./style"
 export default class Clock extends React.Component{
   constructor(){
     super();
-    this.getCurrentTime = this.getCurrentTime.bind(this);
     this.state={hour:null, minute: null, second: null};
+    this.getCurrentTime = this.getCurrentTime.bind(this);
   }
 
   componentDidMount(){
+    this.getCurrentTime();
     this.counter = setInterval(this.getCurrentTime, 1000);
   }
 

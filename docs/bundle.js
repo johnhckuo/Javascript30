@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6b900a167bcec8c0b415"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b9c70eb1b1a6050ff710"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -32728,14 +32728,15 @@
 
 	    var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this));
 
-	    _this.getCurrentTime = _this.getCurrentTime.bind(_this);
 	    _this.state = { hour: null, minute: null, second: null };
+	    _this.getCurrentTime = _this.getCurrentTime.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(Clock, [{
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
+	      this.getCurrentTime();
 	      this.counter = setInterval(this.getCurrentTime, 1000);
 	    }
 	  }, {
@@ -32794,7 +32795,7 @@
 	    _templateObject2 = _taggedTemplateLiteral(['\n\t', '\n'], ['\n\t', '\n']),
 	    _templateObject3 = _taggedTemplateLiteral(['\n\t', '\n\n'], ['\n\t', '\n\n']),
 	    _templateObject4 = _taggedTemplateLiteral(['\n\tposition: absolute;\n\twidth: 10px;\n\theight: 10px;\n\tborder-radius: 100%;\n\tbackground: black;\n'], ['\n\tposition: absolute;\n\twidth: 10px;\n\theight: 10px;\n\tborder-radius: 100%;\n\tbackground: black;\n']),
-	    _templateObject5 = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 300px;\n\theight: 300px;\n\tborder-radius: 100%;\n\tborder: 2px solid #000000;\n'], ['\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 300px;\n\theight: 300px;\n\tborder-radius: 100%;\n\tborder: 2px solid #000000;\n']);
+	    _templateObject5 = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 400px;\n\theight: 400px;\n\tborder-radius: 100%;\n\tborder: 2px solid #000000;\n'], ['\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 400px;\n\theight: 400px;\n\tborder-radius: 100%;\n\tborder: 2px solid #000000;\n']);
 
 	exports.commonLayout = commonLayout;
 
@@ -32807,27 +32808,27 @@
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function commonLayout(height, width, degree) {
-		return '\n\t\tposition: absolute;\n\t\twidth: ' + width + 'px;\n\t\theight: ' + height + 'px;\n\t\tbackground: rgba(0, 0, 0);\n\t\ttransform: translateY(-' + height / 2 + 'px) rotate(' + degree + 'deg);\n\t\ttransform-origin: 50% bottom;\n\t\tborder-radius: 10px;\n\t';
+		return '\n\t\tposition: absolute;\n\t\twidth: ' + width + 'px;\n\t\theight: ' + height + 'px;\n\t\tbackground: rgba(0, 0, 0);\n\t\ttransform: translateY(-' + height / 2 + 'px) rotate(' + degree + 'deg);\n\t\ttransform-origin: 50% 100%;\n\t\tborder-radius: 10px;\n\t\ttransition: all 0.05s;\n\t\ttransition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);\n\t';
 	}
 
 	var Container = exports.Container = _styledComponents2.default.div(_templateObject);
 
 	var HourHand = exports.HourHand = _styledComponents2.default.div.attrs({
-		height: 60,
+		height: 80,
 		width: 6
 	})(_templateObject2, function (props) {
 		return commonLayout(props.height, props.width, props.transform);
 	});
 
 	var MinuteHand = exports.MinuteHand = _styledComponents2.default.div.attrs({
-		height: 80,
+		height: 100,
 		width: 4
 	})(_templateObject2, function (props) {
 		return commonLayout(props.height, props.width, props.transform);
 	});
 
 	var SecondHand = exports.SecondHand = _styledComponents2.default.div.attrs({
-		height: 100,
+		height: 150,
 		width: 2
 	})(_templateObject3, function (props) {
 		return commonLayout(props.height, props.width, props.transform);
