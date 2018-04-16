@@ -6,6 +6,7 @@ export default class Clock extends React.Component{
   constructor(){
     super();
     this.getCurrentTime = this.getCurrentTime.bind(this);
+    this.state={hour:null, minute: null, second: null};
   }
 
   componentDidMount(){
@@ -21,10 +22,21 @@ export default class Clock extends React.Component{
     let hour = d.getHours();
     let minute = d.getMinutes();
     let second = d.getSeconds();
-    console.log(hour, minute, second)
+    this.setState({
+      hour,
+      minute,
+      second
+    });
   }
 
   render(){
-    return (<div></div>);
+    return (
+      <Style.Container>
+        <div>tsetset</div>
+        <Style.HourHand degree={()=>{return this.state.hour*15}}/>
+        <Style.MinuteHand degree={()=>{return this.state.minute*6}}/>
+        <Style.SecondHand degree={()=>{return this.state.second*6}}/>
+      </Style.Container>
+    );
   }
 }
