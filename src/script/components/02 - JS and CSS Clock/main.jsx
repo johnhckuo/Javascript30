@@ -32,10 +32,12 @@ export default class Clock extends React.Component{
   render(){
     return (
       <Style.Container>
-        <div>tsetset</div>
-        <Style.HourHand degree={()=>{return this.state.hour*15}}/>
-        <Style.MinuteHand degree={()=>{return this.state.minute*6}}/>
-        <Style.SecondHand degree={()=>{return this.state.second*6}}/>
+        <Style.Clock>
+          <Style.HourHand transform={this.state.hour*(360/24) + (360/24)*(this.state.minute/60)}/>
+          <Style.MinuteHand transform={this.state.minute*(360/60) + (360/60)*(this.state.second/60)}/>
+          <Style.SecondHand transform={this.state.second*(360/60)}/>
+          <Style.Center />
+        </Style.Clock>
       </Style.Container>
     );
   }

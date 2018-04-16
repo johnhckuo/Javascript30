@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "34c41c11622251347c90"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6b900a167bcec8c0b415"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -32726,13 +32726,51 @@
 	  function Clock() {
 	    _classCallCheck(this, Clock);
 
-	    return _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this));
+	    var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this));
+
+	    _this.getCurrentTime = _this.getCurrentTime.bind(_this);
+	    _this.state = { hour: null, minute: null, second: null };
+	    return _this;
 	  }
 
 	  _createClass(Clock, [{
+	    key: "componentDidMount",
+	    value: function componentDidMount() {
+	      this.counter = setInterval(this.getCurrentTime, 1000);
+	    }
+	  }, {
+	    key: "componentWillUnmount",
+	    value: function componentWillUnmount() {
+	      clearInterval(this.counter);
+	    }
+	  }, {
+	    key: "getCurrentTime",
+	    value: function getCurrentTime() {
+	      var d = new Date();
+	      var hour = d.getHours();
+	      var minute = d.getMinutes();
+	      var second = d.getSeconds();
+	      this.setState({
+	        hour: hour,
+	        minute: minute,
+	        second: second
+	      });
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
-	      return _react2.default.createElement("div", null);
+	      return _react2.default.createElement(
+	        Style.Container,
+	        null,
+	        _react2.default.createElement(
+	          Style.Clock,
+	          null,
+	          _react2.default.createElement(Style.HourHand, { transform: this.state.hour * (360 / 24) + 360 / 24 * (this.state.minute / 60) }),
+	          _react2.default.createElement(Style.MinuteHand, { transform: this.state.minute * (360 / 60) + 360 / 60 * (this.state.second / 60) }),
+	          _react2.default.createElement(Style.SecondHand, { transform: this.state.second * (360 / 60) }),
+	          _react2.default.createElement(Style.Center, null)
+	        )
+	      );
 	    }
 	  }]);
 
@@ -32747,11 +32785,57 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Clock = exports.Center = exports.SecondHand = exports.MinuteHand = exports.HourHand = exports.Container = undefined;
+
+	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 100%;\n\theight: 100%;\n\tbackground:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);\n\tbackground-size:cover;\n\n'], ['\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 100%;\n\theight: 100%;\n\tbackground:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);\n\tbackground-size:cover;\n\n']),
+	    _templateObject2 = _taggedTemplateLiteral(['\n\t', '\n'], ['\n\t', '\n']),
+	    _templateObject3 = _taggedTemplateLiteral(['\n\t', '\n\n'], ['\n\t', '\n\n']),
+	    _templateObject4 = _taggedTemplateLiteral(['\n\tposition: absolute;\n\twidth: 10px;\n\theight: 10px;\n\tborder-radius: 100%;\n\tbackground: black;\n'], ['\n\tposition: absolute;\n\twidth: 10px;\n\theight: 10px;\n\tborder-radius: 100%;\n\tbackground: black;\n']),
+	    _templateObject5 = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 300px;\n\theight: 300px;\n\tborder-radius: 100%;\n\tborder: 2px solid #000000;\n'], ['\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 300px;\n\theight: 300px;\n\tborder-radius: 100%;\n\tborder: 2px solid #000000;\n']);
+
+	exports.commonLayout = commonLayout;
+
 	var _styledComponents = __webpack_require__(273);
 
 	var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+	function commonLayout(height, width, degree) {
+		return '\n\t\tposition: absolute;\n\t\twidth: ' + width + 'px;\n\t\theight: ' + height + 'px;\n\t\tbackground: rgba(0, 0, 0);\n\t\ttransform: translateY(-' + height / 2 + 'px) rotate(' + degree + 'deg);\n\t\ttransform-origin: 50% bottom;\n\t\tborder-radius: 10px;\n\t';
+	}
+
+	var Container = exports.Container = _styledComponents2.default.div(_templateObject);
+
+	var HourHand = exports.HourHand = _styledComponents2.default.div.attrs({
+		height: 60,
+		width: 6
+	})(_templateObject2, function (props) {
+		return commonLayout(props.height, props.width, props.transform);
+	});
+
+	var MinuteHand = exports.MinuteHand = _styledComponents2.default.div.attrs({
+		height: 80,
+		width: 4
+	})(_templateObject2, function (props) {
+		return commonLayout(props.height, props.width, props.transform);
+	});
+
+	var SecondHand = exports.SecondHand = _styledComponents2.default.div.attrs({
+		height: 100,
+		width: 2
+	})(_templateObject3, function (props) {
+		return commonLayout(props.height, props.width, props.transform);
+	});
+
+	var Center = exports.Center = _styledComponents2.default.div(_templateObject4);
+
+	var Clock = exports.Clock = _styledComponents2.default.div(_templateObject5);
 
 /***/ }),
 /* 280 */
@@ -32764,7 +32848,7 @@
 	});
 	exports.Expand = exports.List = exports.Menu = exports.Container = undefined;
 
-	var _templateObject = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n"], ["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n"]),
+	var _templateObject = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n"], ["\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n"]),
 	    _templateObject2 = _taggedTemplateLiteral(["\n  position: absolute;\n  list-style-type: none;\n  width: 6vw;\n  height: 100vh;\n  background: white;\n  top: 0px;\n  left: 0px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  transition: transform 1s;\n  transform: ", "\n"], ["\n  position: absolute;\n  list-style-type: none;\n  width: 6vw;\n  height: 100vh;\n  background: white;\n  top: 0px;\n  left: 0px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  transition: transform 1s;\n  transform: ", "\n"]),
 	    _templateObject3 = _taggedTemplateLiteral(["\n  float: left;\n  margin-top: 10px;\n  margin-bottom: 10px;\n"], ["\n  float: left;\n  margin-top: 10px;\n  margin-bottom: 10px;\n"]),
 	    _templateObject4 = _taggedTemplateLiteral(["\n  position: absolute;\n"], ["\n  position: absolute;\n"]);

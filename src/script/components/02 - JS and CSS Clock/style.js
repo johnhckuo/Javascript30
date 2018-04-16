@@ -1,24 +1,14 @@
 import styled from 'styled-components';
 
-export function commonLayout(type) {
-	let height, width;
-	if (type === "second"){
-		height= 100;
-		width= 5;
-	}else if (type === "minute"){
-		height = 80;
-		width= 7; 
-	}else{
-		height= 40;
-		width= 12;
-	}
-
+export function commonLayout(height, width, degree) {
 	return `
 		position: absolute;
 		width: ${width}px;
 		height: ${height}px;
 		background: rgba(0, 0, 0);
-		transform: translateY(${height}px);
+		transform: translateY(-${height/2}px) rotate(${degree}deg);
+		transform-origin: 50% bottom;
+		border-radius: 10px;
 	`;
 }
 
@@ -28,21 +18,48 @@ export const Container = styled.div`
 	align-items: center;
 	width: 100%;
 	height: 100%;
+	background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+	background-size:cover;
+
 `;
 
 
-export const HourHand = styled.div`
-	${commonLayout('hour')}
-	transform: translateY(${height}px) rotate(${props=>props.degree}deg);
+export const HourHand = styled.div.attrs({
+	height: 60,
+	width: 6,
+})`
+	${props=> commonLayout(props.height, props.width, props.transform)}
 `;
 
-export const MinuteHand = styled.div`
-	${commonLayout('minute')}
-	transform: translateY(${height}px) rotate(${props=>props.degree}deg);
+export const MinuteHand = styled.div.attrs({
+	height: 80,
+	width: 4,
+})`
+	${props=> commonLayout(props.height, props.width, props.transform)}
 `;
 
-export const SecondHand = styled.div`
-	${commonLayout('second')}
-	transform: translateY(${height}px) rotate(${props=>props.degree}deg);
+export const SecondHand = styled.div.attrs({
+	height: 100,
+	width: 2,
+})`
+	${props=> commonLayout(props.height, props.width, props.transform)}
 
+`;
+
+export const Center = styled.div`
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	background: black;
+`;
+
+export const Clock = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 300px;
+	height: 300px;
+	border-radius: 100%;
+	border: 2px solid #000000;
 `;
