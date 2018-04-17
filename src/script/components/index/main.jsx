@@ -1,6 +1,6 @@
 import React from "react"
 
-import {Drum, Clock} from "../"
+import {Drum, Clock, Filter} from "../"
 import { Link, BrowserRouter as Router, Route } from 'react-router-dom'
 import * as Style from "./style"
 
@@ -19,10 +19,12 @@ export default class Main extends React.Component{
         <Style.Menu isActive = {this.state.isActive}>
           <Style.List><Link to="/01">Drum</Link></Style.List>
           <Style.List><Link to="/02">Clock</Link></Style.List>
+          <Style.List><Link to="/03">Filter</Link></Style.List>
         </Style.Menu>
         <Style.Expand />
         <Route exact path="/01" component={Drum} ></Route>
         <Route exact path="/02" component={Clock} ></Route>
+        <Route exact path="/03" component={Filter} ></Route>
       </Style.Container>
     );
   }
