@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-	width: 80%;
-	height: 20%;
+  width: 100%;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 `;
 
 export const Arrow = styled.div`
@@ -20,11 +19,12 @@ export const Arrow = styled.div`
 `;
 
 export const Date = styled.div`
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
   background: #AAA;
-  text-align: center;
-  width: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
-
 
 `;
