@@ -1,7 +1,8 @@
 import React from "react"
 
-import * as Style from "./style.js"
+import * as Style from "./style"
 import monthNames from "./MonthNames"
+import Utils from "../Utils/main"
 
 export default class Header extends React.Component{
   constructor(props){
@@ -23,24 +24,20 @@ export default class Header extends React.Component{
   }
 
   handleDateChange(offset){
-    var {day, month, year} = this.props;
+    const {day, month, year} = this.props;
+    var newYear, newMonth;
     if (this.state.currentLayer == 0){
-      month = month + offset;
-      if ((month+1) > 12){
-        month = month % 12;
-        year++;
-      }else if ((month+1) < 1){
-        month = 11;
-        year--;
-      }
+      var newDate = Utils.calculateNewDate(year, month + offset)
+      newYear = newDate.year;
+      newMonth = newDate.month;
     }else{
-      year = year + offset;
+      newYear = year + offset;
     }
-    
-    if (year < 0){
+
+    if (newYear < 0){
       return;
     }
-    this.props.updateDate(year, month, day);
+    this.props.updateDate(newYear, newMonth, day);
 
   }
 

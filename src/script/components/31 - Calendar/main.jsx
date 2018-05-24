@@ -9,31 +9,26 @@ export default class Calendar extends React.Component{
     super(props);
     var date = new Date();
     this.state = {
-      day: date.getDate(),
+      date: date.getDate(),
       month: date.getMonth(),
       year: date.getFullYear(),
     };
     this.updateDate = this.updateDate.bind(this);
-    this.daysInMonth = this.daysInMonth.bind(this);
   }
 
-  daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
-  }
-
-  updateDate(year, month, day){
+  updateDate(year, month, date){
     this.setState({
       year,
       month,
-      day: this.daysInMonth(day)
+      date
     })
   }
 
   render(){
     return (
       <Style.Container>
-        <Header day={this.state.day} month={this.state.month} year={this.state.year} updateDate={this.updateDate}/>
-        <Content />
+        <Header date={this.state.date} month={this.state.month} year={this.state.year} updateDate={this.updateDate}/>
+        <Content date={this.state.date} month={this.state.month} year={this.state.year} updateDate={this.updateDate} />
       </Style.Container>
     );
   }

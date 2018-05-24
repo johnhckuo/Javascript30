@@ -4,6 +4,19 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 	width: 100%;
-	height: 80%;
+  span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 13%;
+    text-align: center;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all .5s;
+    &:hover{
+      background: #DDD;
+    }
+  }
 `;
