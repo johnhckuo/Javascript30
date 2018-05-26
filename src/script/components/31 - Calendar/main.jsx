@@ -9,26 +9,36 @@ export default class Calendar extends React.Component{
     super(props);
     var date = new Date();
     this.state = {
-      date: date.getDate(),
-      month: date.getMonth(),
-      year: date.getFullYear(),
+      selectedDate: date.getDate(),
+      selectedMonth: date.getMonth(),
+      selectedYear: date.getFullYear(),
+      currentYear: date.getFullYear(),
+      currentMonth: date.getMonth()
     };
-    this.updateDate = this.updateDate.bind(this);
+    this.updateSelectedDate = this.updateSelectedDate.bind(this);
+    this.updateCurrentDate = this.updateCurrentDate.bind(this);
   }
 
-  updateDate(year, month, date){
+  updateSelectedDate(selectedYear, selectedMonth, selectedDate){
     this.setState({
-      year,
-      month,
-      date
+      selectedYear,
+      selectedMonth,
+      selectedDate
+    })
+  }
+
+  updateCurrentDate(currentYear, currentMonth){
+    this.setState({
+      currentYear,
+      currentMonth
     })
   }
 
   render(){
     return (
       <Style.Container>
-        <Header date={this.state.date} month={this.state.month} year={this.state.year} updateDate={this.updateDate}/>
-        <Content date={this.state.date} month={this.state.month} year={this.state.year} updateDate={this.updateDate} />
+        <Header currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} selectedDate={this.state.selectedDate} selectedMonth={this.state.selectedMonth} selectedYear={this.state.selectedYear} updateCurrentDate={this.updateCurrentDate} updateSelectedDate={this.updateSelectedDate}/>
+        <Content currentMonth={this.state.currentMonth} currentYear={this.state.currentYear} selectedDate={this.state.selectedDate} selectedMonth={this.state.selectedMonth} selectedYear={this.state.selectedYear} updateCurrentDate={this.updateCurrentDate} updateSelectedDate={this.updateSelectedDate}/>
       </Style.Container>
     );
   }

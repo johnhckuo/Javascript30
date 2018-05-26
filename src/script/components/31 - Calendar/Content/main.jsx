@@ -17,25 +17,25 @@ export default class Content extends React.Component{
   }
 
   handleDateChange(e, increment){
-    const {date, month , year} = this.props;
+    const {selectedDate, selectedMonth , selectedYear} = this.props;
     var newDate;
-    newDate = Utils.calculateNewDate(year, (month+increment), date);
-    this.props.updateDate(newDate.year, newDate.month, parseInt(e.target.innerHTML));
+    newDate = Utils.calculateNewDate(selectedYear, (selectedMonth+increment), selectedDate);
+    this.props.updateSelectedDate(newDate.year, newDate.month, parseInt(e.target.innerHTML));
+    this.props.updateCurrentDate(newDate.year, newDate.month);
   }
 
   render(){
-    const {date, month, year} = this.props;
+    const {selectedDate, selectedMonth, selectedYear, currentMonth, currentYear} = this.props;
 
-
-    var d = new Date(year, month, 1);
+    var d = new Date(currentYear, currentMonth, 1);
     var startingDay = d.getDay();
     var weekDates = [];
     var weekDays = [];
     for (var i = 0 ; i < this.column ; i++){
       weekDays.push(weekNames[i]);
     }
-    var previousMonthDays = this.daysInMonth(month, year);
-    var currentMonthDays = this.daysInMonth((month+1)%12, year);
+    var previousMonthDays = this.daysInMonth(currentMonth, currentYear);
+    var currentMonthDays = this.daysInMonth((currentMonth+1)%12, currentYear);
 
     var previousDate = [];
     for (var j = 0 ; j < startingDay ; j++){
@@ -52,7 +52,6 @@ export default class Content extends React.Component{
     for (var k = 1 ; k <= nextRemainDateLength ; k++){
       nextDate.push(k);
     }
-
     return (
       <Style.Container>
         {
@@ -62,7 +61,13 @@ export default class Content extends React.Component{
           previousDate.map((date)=> { return <span onClick={(e)=>{this.handleDateChange(e, -1)}}>{date}</span> })
         }
         {
-          currentDate.map((date)=> { return <span onClick={(e)=>{this.handleDateChange(e, 0)}}>{date}</span> })
+          currentDate.map((date)=> { 
+            if (date == selectedDate && selectedMonth == currentMonth && selectedYear == currentYear){
+              return <span className="selected" onClick={(e)=>{this.handleDateChange(e, 0)}}>{date}</span> 
+            }
+            return <span onClick={(e)=>{this.handleDateChange(e, 0)}}>{date}</span> 
+
+          })
         }
         {
           nextDate.map((date)=> { return <span onClick={(e)=>{this.handleDateChange(e, 1)}}>{date}</span> })

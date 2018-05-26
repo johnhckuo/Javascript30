@@ -14,9 +14,11 @@ export const Container = styled.div`
     text-align: center;
     border-radius: 100%;
     cursor: pointer;
-    transition: all .5s;
     &:hover{
       background: #DDD;
     }
+  }
+  .selected{
+    background: #FAA;
   }
 `;

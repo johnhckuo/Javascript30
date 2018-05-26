@@ -24,34 +24,34 @@ export default class Header extends React.Component{
   }
 
   handleDateChange(offset){
-    const {day, month, year} = this.props;
+    const {currentMonth, currentYear} = this.props;
     var newYear, newMonth;
     if (this.state.currentLayer == 0){
-      var newDate = Utils.calculateNewDate(year, month + offset)
+      var newDate = Utils.calculateNewDate(currentYear, currentMonth + offset)
       newYear = newDate.year;
       newMonth = newDate.month;
     }else{
-      newYear = year + offset;
+      newYear = currentYear + offset;
     }
 
     if (newYear < 0){
       return;
     }
-    this.props.updateDate(newYear, newMonth, day);
+    this.props.updateCurrentDate(newYear, newMonth);
 
   }
 
 
   render(){
-    const {day, month, year} = this.props;
+    const {currentMonth, currentYear} = this.props;
     const {currentLayer} = this.state;
     var currentDate;
     switch (currentLayer){
       case 0:
-        currentDate = `${monthNames[month]} ${year}`;
+        currentDate = `${monthNames[currentMonth]} ${currentYear}`;
         break;
       case 1:
-        currentDate = year;
+        currentDate = currentYear;
         break;
     }
     return (
