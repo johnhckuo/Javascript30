@@ -14,11 +14,14 @@ export default class Calendar extends React.Component{
       selectedYear: date.getFullYear(),
       currentYear: date.getFullYear(),
       currentMonth: date.getMonth(),
-      currentLayer: 0
+      currentLayer: 0,
+      expand: false
     };
     this.updateLayer = this.updateLayer.bind(this);
     this.updateSelectedDate = this.updateSelectedDate.bind(this);
     this.updateCurrentDate = this.updateCurrentDate.bind(this);
+    this.toggleCalendar = this.toggleCalendar.bind(this);
+    this.updateManually = this.updateManually.bind(this);
   }
 
   updateLayer(offset){
@@ -48,31 +51,52 @@ export default class Calendar extends React.Component{
     })
   }
 
+  toggleCalendar(expand){
+    this.setState({expand});
+  }
+
+  updateManually(e){
+    console.log(e.target.value)
+  }
+
   render(){
     return (
       <Style.Container>
-        <Header 
-          currentLayer={this.state.currentLayer} 
-          updateLayer={this.updateLayer} 
-          currentMonth={this.state.currentMonth} 
-          currentYear={this.state.currentYear} 
-          selectedDate={this.state.selectedDate} 
-          selectedMonth={this.state.selectedMonth} 
-          selectedYear={this.state.selectedYear} 
-          updateCurrentDate={this.updateCurrentDate} 
-          updateSelectedDate={this.updateSelectedDate}
-        />
-        <Content 
-          currentLayer={this.state.currentLayer} 
-          updateLayer={this.updateLayer} 
-          currentMonth={this.state.currentMonth} 
-          currentYear={this.state.currentYear} 
-          selectedDate={this.state.selectedDate} 
-          selectedMonth={this.state.selectedMonth} 
-          selectedYear={this.state.selectedYear} 
-          updateCurrentDate={this.updateCurrentDate} 
-          updateSelectedDate={this.updateSelectedDate}
-        />
+        <div className="inputContatiner">
+          <input type="text" onChange={this.updateManually} onClick={()=>{this.toggleCalendar(true)}} value={this.state.currentYear} />
+          <input type="text" onChange={this.updateManually} onClick={()=>{this.toggleCalendar(true)}} value={this.state.currentMonth+1} />
+          <input type="text" onChange={this.updateManually} onClick={()=>{this.toggleCalendar(true)}} value={this.state.selectedDate} />
+        </div>
+        {
+          this.state.expand == true &&
+          <span>
+            <Header
+              currentLayer={this.state.currentLayer}
+              updateLayer={this.updateLayer}
+              currentMonth={this.state.currentMonth}
+              currentYear={this.state.currentYear}
+              selectedDate={this.state.selectedDate}
+              selectedMonth={this.state.selectedMonth}
+              selectedYear={this.state.selectedYear}
+              updateCurrentDate={this.updateCurrentDate}
+              updateSelectedDate={this.updateSelectedDate}
+            />
+            <Content
+              currentLayer={this.state.currentLayer}
+              updateLayer={this.updateLayer}
+              currentMonth={this.state.currentMonth}
+              currentYear={this.state.currentYear}
+              selectedDate={this.state.selectedDate}
+              selectedMonth={this.state.selectedMonth}
+              selectedYear={this.state.selectedYear}
+              updateCurrentDate={this.updateCurrentDate}
+              updateSelectedDate={this.updateSelectedDate}
+              toggleCalendar={this.toggleCalendar}
+            />
+          </span>
+
+        }
+
       </Style.Container>
     );
   }

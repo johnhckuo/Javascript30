@@ -9,4 +9,13 @@ export const Container = styled.div`
 	height: 100vh;
   margin-left: auto;
   margin-right: auto;
+  .inputContatiner{
+    display: flex;
+    flex-direction: row;
+    input{
+      padding: 15px;
+      text-align: center;
+      width: 40px;
+    }
+  }
 `;

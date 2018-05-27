@@ -27,6 +27,7 @@ export default class Content extends React.Component{
       newDate = Utils.calculateNewDate(currentYear, (currentMonth+increment));
       this.props.updateSelectedDate(newDate.year, newDate.month, parseInt(e.target.innerHTML));
       this.props.updateCurrentDate(newDate.year, newDate.month);
+      this.props.toggleCalendar(false);
     }else if (currentLayer == 1){
       this.props.updateCurrentDate(currentYear, parseInt(e.target.getAttribute('data-id')));
       this.props.updateLayer(-1);
@@ -91,11 +92,11 @@ export default class Content extends React.Component{
             previousDate.map((date)=> { return <span className="gray" key={`p${date}`} onClick={(e)=>{this.handleDateChange(e, -1)}}>{date}</span> })
           }
           {
-            currentDate.map((date)=> { 
+            currentDate.map((date)=> {
               if (date == selectedDate && selectedMonth == currentMonth && selectedYear == currentYear){
-                return <span key={`c${date}`} className="selected" onClick={(e)=>{this.handleDateChange(e, 0)}}>{date}</span> 
+                return <span key={`c${date}`} className="selected" onClick={(e)=>{this.handleDateChange(e, 0)}}>{date}</span>
               }
-              return <span key={`c${date}`} onClick={(e)=>{this.handleDateChange(e, 0)}}>{date}</span> 
+              return <span key={`c${date}`} onClick={(e)=>{this.handleDateChange(e, 0)}}>{date}</span>
 
             })
           }
