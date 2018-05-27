@@ -11,8 +11,9 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 13%;
+    height: 25px;
+    box-sizing: border-box;
     text-align: center;
-    border-radius: 100%;
     cursor: pointer;
     &:hover{
       background: #DDD;
@@ -20,5 +21,12 @@ export const Container = styled.div`
   }
   .selected{
     background: #FAA;
+  }
+  .gray{
+    color:#BBB;
+  }
+  .highLevelDate{
+    width: 25%;
+    height: 50px;
   }
 `;
