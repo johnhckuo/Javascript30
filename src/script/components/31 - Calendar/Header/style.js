@@ -5,6 +5,8 @@ export const Container = styled.div`
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const Arrow = styled.div`

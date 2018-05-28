@@ -51,21 +51,45 @@ export default class Calendar extends React.Component{
     })
   }
 
-  toggleCalendar(expand){
+  toggleCalendar(e, expand, type){
     this.setState({expand});
+    if (expand == true){
+      e.target.setSelectionRange(0, e.target.value)
+    }
+
+    if (type == "year"){
+      this.setState({currentLayer: 2});
+    }else if(type == "month"){
+      this.setState({currentLayer: 1});
+    }else if (type == "date"){
+      this.setState({currentLayer: 0});
+    }
   }
 
-  updateManually(e){
-    console.log(e.target.value)
+  updateManually(e, type){
+    var value = e.target.value;
+    if (parseInt(value) != value){
+      return;
+    }
+    if (type === "year"){
+      this.setState({selectedYear: value});
+      this.setState({currentYear: value});
+    }else if (type === "month" && value <= 12 && value >= 1){
+      this.setState({selectedMonth: value-1});
+      this.setState({currentMonth: value-1});
+    }else if (type === "date" && value <= 31 && value >= 1){
+      this.setState({selectedDate: value});
+    }
   }
 
   render(){
     return (
       <Style.Container>
+        <h1>Select a date: </h1>
         <div className="inputContatiner">
-          <input type="text" onChange={this.updateManually} onClick={()=>{this.toggleCalendar(true)}} value={this.state.currentYear} />
-          <input type="text" onChange={this.updateManually} onClick={()=>{this.toggleCalendar(true)}} value={this.state.currentMonth+1} />
-          <input type="text" onChange={this.updateManually} onClick={()=>{this.toggleCalendar(true)}} value={this.state.selectedDate} />
+          <input type="text" onChange={(e)=>{this.updateManually(e, 'year')}} onClick={(e)=>{this.toggleCalendar(e, true, 'year')}} value={this.state.selectedYear} />
+          <input type="text" onChange={(e)=>{this.updateManually(e, 'month')}} onClick={(e)=>{this.toggleCalendar(e, true, 'month')}} value={this.state.selectedMonth+1} />
+          <input type="text" onChange={(e)=>{this.updateManually(e, 'date')}} onClick={(e)=>{this.toggleCalendar(e, true, 'date')}} value={this.state.selectedDate} />
         </div>
         {
           this.state.expand == true &&

@@ -9,13 +9,22 @@ export const Container = styled.div`
 	height: 100vh;
   margin-left: auto;
   margin-right: auto;
+
   .inputContatiner{
     display: flex;
     flex-direction: row;
+    margin-bottom: 15px;
     input{
+      outline: none;
       padding: 15px;
       text-align: center;
       width: 40px;
     }
+  }
+
+  h1{
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 15px;
   }
 `;

@@ -25,15 +25,31 @@ export default class Content extends React.Component{
     if (currentLayer == 0){
       var newDate;
       newDate = Utils.calculateNewDate(currentYear, (currentMonth+increment));
-      this.props.updateSelectedDate(newDate.year, newDate.month, parseInt(e.target.innerHTML));
       this.props.updateCurrentDate(newDate.year, newDate.month);
-      this.props.toggleCalendar(false);
+
+      if (increment == 0){
+        this.props.updateSelectedDate(newDate.year, newDate.month, parseInt(e.target.innerHTML));
+        this.props.toggleCalendar(null, false, null);
+      }
+
     }else if (currentLayer == 1){
-      this.props.updateCurrentDate(currentYear, parseInt(e.target.getAttribute('data-id')));
-      this.props.updateLayer(-1);
+      var newMonth = parseInt(e.target.getAttribute('data-id'));
+      this.props.updateCurrentDate(currentYear, newMonth);
+
+      if (increment == 0){
+        this.props.updateSelectedDate(selectedYear, newMonth, selectedDate);
+        this.props.updateLayer(-1);
+      }
+
     }else if (currentLayer == 2){
-      this.props.updateCurrentDate(parseInt(e.target.innerHTML), 0);
-      this.props.updateLayer(-1);
+      var newYear = parseInt(e.target.innerHTML);
+      this.props.updateCurrentDate(newYear, 0);
+
+      if (increment == 0){
+        this.props.updateSelectedDate(newYear, selectedMonth, selectedDate);
+        this.props.updateLayer(-1);
+      }
+
     }
   }
 
@@ -110,7 +126,11 @@ export default class Content extends React.Component{
         <Style.Container>
           {
             monthNames.map((month, index)=>{
-              return <span key={index} className="highLevelDate" data-id={index} onClick={this.handleDateChange}>{month}</span>
+              var monthIndex = monthNames.indexOf(month);
+              if (monthIndex == selectedMonth && selectedYear == currentYear){
+                return <span key={index} className="highLevelDate selected" data-id={index} onClick={(e)=>this.handleDateChange(e, 1)}>{month}</span>
+              }
+              return <span key={index} className="highLevelDate" data-id={index} onClick={(e)=>this.handleDateChange(e, 0)}>{month}</span>
             })
           }
         </Style.Container>
@@ -126,6 +146,9 @@ export default class Content extends React.Component{
               }else if (index == years.length-1){
                 return <span className="gray highLevelDate" key={index} onClick={(e)=>this.handleDateChange(e, 1)}>{year}</span>
               }else{
+                if (year == selectedYear){
+                  return <span className="highLevelDate selected" key={index} onClick={(e)=>this.handleDateChange(e, 0)}>{year}</span>
+                }
                 return <span className="highLevelDate" key={index} onClick={(e)=>this.handleDateChange(e, 0)}>{year}</span>
               }
             })
