@@ -128,7 +128,7 @@ export default class Content extends React.Component{
             monthNames.map((month, index)=>{
               var monthIndex = monthNames.indexOf(month);
               if (monthIndex == selectedMonth && selectedYear == currentYear){
-                return <span key={index} className="highLevelDate selected" data-id={index} onClick={(e)=>this.handleDateChange(e, 1)}>{month}</span>
+                return <span key={index} className="highLevelDate selected" data-id={index} onClick={(e)=>this.handleDateChange(e, 0)}>{month}</span>
               }
               return <span key={index} className="highLevelDate" data-id={index} onClick={(e)=>this.handleDateChange(e, 0)}>{month}</span>
             })
